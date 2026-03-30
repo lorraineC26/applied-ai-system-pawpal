@@ -255,6 +255,32 @@ class Scheduler:
             result = [t for t in result if t.pet_name == pet_name]
         return result
 
+    def detect_conflicts(self, tasks):
+        """Check a list of tasks for scheduling conflicts (same time slot).
+
+        Groups tasks by their 'time' attribute. Any group with more than one
+        task is a conflict. Returns a list of warning strings — never raises.
+        Returns an empty list if no conflicts are found.
+        """
+        from collections import defaultdict
+        warnings = []
+        time_groups = defaultdict(list)
+
+        for task in tasks:
+            time_groups[task.time].append(task)
+
+        for time_slot, conflicting in time_groups.items():
+            if len(conflicting) > 1:
+                names = ", ".join(
+                    f"{t.name} ({t.pet_name})" if t.pet_name else t.name
+                    for t in conflicting
+                )
+                warnings.append(
+                    f"WARNING: Conflict at {time_slot} — {len(conflicting)} tasks overlap: {names}"
+                )
+
+        return warnings
+
     def explain_plan(self):
         """Print a plain-English explanation of the current schedule."""
         if not self.schedule:
