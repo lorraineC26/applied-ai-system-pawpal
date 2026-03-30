@@ -22,6 +22,18 @@ Your final app should:
 - Display the plan clearly (and ideally explain the reasoning)
 - Include tests for the most important scheduling behaviors
 
+## Smarter Scheduling
+
+The `Scheduler` class has been extended with three features beyond basic plan generation:
+
+**Sort by time** — `sort_by_time(tasks)` returns tasks ordered chronologically using each task's `time` attribute in `HH:MM` format. Because the strings are zero-padded, standard string comparison produces the correct order with no conversion needed.
+
+**Filter tasks** — `filter_tasks(tasks, completed, pet_name)` returns a subset of tasks matching the given criteria. Both parameters are optional, so you can filter by completion status, by pet name, or both at once.
+
+**Conflict detection** — `detect_conflicts(tasks)` scans a task list for two or more tasks scheduled at the same time. It returns a list of warning strings (one per conflict) rather than raising an exception, so the app can surface warnings without interrupting the user's workflow.
+
+**Recurring tasks** — `Task` now accepts a `recurrence` field (`"daily"` or `"weekly"`). When `mark_complete()` is called on a recurring task, it returns a new `Task` instance due on the next occurrence, calculated with Python's `timedelta`. Non-recurring tasks return `None`.
+
 ## Getting started
 
 ### Setup

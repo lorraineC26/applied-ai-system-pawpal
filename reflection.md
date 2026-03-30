@@ -86,10 +86,18 @@ Yes. The initial UML showed two relationships — `Owner "1"-->"1" Pet` and `Own
 - What constraints does your scheduler consider (for example: time, priority, preferences)?
 - How did you decide which constraints mattered most?
 
+The scheduler considers three constraints: **time budget** (the owner's total available minutes per day), **task priority** (high / medium / low), and **time-of-day preference** (morning, afternoon, evening, or any — with an optional `prefer_morning` flag that promotes morning tasks further).
+
+Priority was treated as most important because high-priority tasks tend to be health-critical (medication, feeding), so skipping them carries real consequences. Time budget is a hard constraint, a task either fits or it doesn't, so it acts as a gate after priority sorting. Time-of-day preference is the softest constraint: it shapes the order of same-priority tasks but never excludes a task on its own. This hierarchy (priority → time budget → time preference) reflects a simple rule: do the most important things first, as early as the owner prefers, and stop when time runs out.
+
 **b. Tradeoffs**
 
 - Describe one tradeoff your scheduler makes.
 - Why is that tradeoff reasonable for this scenario?
+
+The scheduler uses a greedy first-fit strategy: it works through the priority-sorted task list and includes each task if it fits within the remaining time budget, skipping it otherwise. This means a long high-priority task early in the list can consume enough time to crowd out several shorter tasks that follow, even if those shorter tasks would collectively be a better use of the remaining minutes.
+
+This tradeoff is reasonable for a daily pet care app because simplicity and predictability matter more than perfect optimization. Owners can read the reasoning output and manually adjust task durations or priorities if the plan feels off. A more complex algorithm (such as dynamic programming to maximize tasks scheduled) would be harder to explain and harder to trust, which matters in a care context where the owner needs to understand and verify the plan.
 
 ---
 
