@@ -1,7 +1,7 @@
 # "logic layer" where all your backend classes live
 
 class Task:
-    def __init__(self, name, category, duration, priority, preferred_time, pet_name=""):
+    def __init__(self, name, category, duration, priority, preferred_time, pet_name="", time="00:00"):
         """Create a new Task with a name, category, duration, priority, and preferred time."""
         self.name = name                    # e.g. "Morning walk"
         self.category = category            # e.g. "exercise", "feeding", "medication"
@@ -9,6 +9,7 @@ class Task:
         self.priority = priority            # "low", "medium", or "high"
         self.preferred_time = preferred_time  # e.g. "morning", "afternoon", "evening"
         self.pet_name = pet_name            # snapshot of the pet's name at creation time
+        self.time = time                    # scheduled time in "HH:MM" format
         self.completed = False
 
     def mark_complete(self):
@@ -208,6 +209,23 @@ class Scheduler:
             reasoning=reasoning,
         )
         return self.schedule
+
+    def sort_by_time(self, tasks):
+        """Sort a list of Task objects by their time attribute in 'HH:MM' format."""
+        return sorted(tasks, key=lambda task: task.time)
+
+    def filter_tasks(self, tasks, completed=None, pet_name=None):
+        """Filter tasks by completion status and/or pet name.
+
+        - completed: True for completed tasks, False for incomplete, None for all.
+        - pet_name: only return tasks matching this pet name, None for all.
+        """
+        result = tasks
+        if completed is not None:
+            result = [t for t in result if t.completed == completed]
+        if pet_name is not None:
+            result = [t for t in result if t.pet_name == pet_name]
+        return result
 
     def explain_plan(self):
         """Print a plain-English explanation of the current schedule."""
