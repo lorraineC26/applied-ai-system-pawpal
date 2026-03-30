@@ -16,9 +16,10 @@
 
 ## 📸 Demo
 
-![PawPal+ app screenshot](public/demo_screenshot.png)
-
-> **Note:** Replace `public/demo_screenshot.png` with an actual screenshot of your running Streamlit app (`streamlit run app.py`), then remove this note.
+![PawPal+ app screenshot](public/task.png)
+![PawPal+ app screenshot](public/task2.png)
+![PawPal+ app screenshot](public/task3.png)
+![PawPal+ app screenshot](public/task4.png)
 
 ---
 
