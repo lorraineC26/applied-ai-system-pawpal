@@ -2,12 +2,17 @@
 
 class Task:
     def __init__(self, name, category, duration, priority, preferred_time):
+        """Create a new Task with a name, category, duration, priority, and preferred time."""
         self.name = name                    # e.g. "Morning walk"
         self.category = category            # e.g. "exercise", "feeding", "medication"
         self.duration = duration            # in minutes
         self.priority = priority            # "low", "medium", or "high"
         self.preferred_time = preferred_time  # e.g. "morning", "afternoon", "evening"
         self.completed = False
+
+    def mark_complete(self):
+        """Mark this task as completed."""
+        self.completed = True
 
     def edit(self, field, value):
         """Update a field on the task by name."""
@@ -28,11 +33,13 @@ class Task:
         }
 
     def __repr__(self):
+        """Return a debug-friendly string representation of the Task."""
         return f"Task({self.name!r}, priority={self.priority}, duration={self.duration}min)"
 
 
 class Pet:
     def __init__(self, name, species, age, health_notes):
+        """Create a new Pet with basic profile info and an empty task list."""
         self.name = name
         self.species = species      # e.g. "dog", "cat"
         self.age = age              # in years
@@ -60,11 +67,13 @@ class Pet:
         }
 
     def __repr__(self):
+        """Return a debug-friendly string representation of the Pet."""
         return f"Pet({self.name!r}, {self.species}, age={self.age})"
 
 
 class Owner:
     def __init__(self, name, time_available, preferences):
+        """Create a new Owner with a name, daily time budget, and scheduling preferences."""
         self.name = name
         self.time_available = time_available  # total minutes available today
         self.preferences = preferences        # dict, e.g. {"prefer_morning": True}
@@ -88,6 +97,7 @@ class Owner:
         }
 
     def __repr__(self):
+        """Return a debug-friendly string representation of the Owner."""
         return f"Owner({self.name!r}, time_available={self.time_available}min)"
 
 
@@ -96,6 +106,7 @@ class Schedule:
     TIME_SLOTS = ["morning", "afternoon", "evening", "any"]
 
     def __init__(self, date, tasks, total_duration, reasoning):
+        """Create a Schedule with an ordered task list, total duration, and per-task reasoning."""
         self.date = date                    # date string, e.g. "2026-03-29"
         self.tasks = tasks                  # ordered list of Task objects
         self.total_duration = total_duration  # sum of durations (minutes)
@@ -131,6 +142,7 @@ class Schedule:
         return rows
 
     def __repr__(self):
+        """Return a debug-friendly string representation of the Schedule."""
         return f"Schedule(date={self.date!r}, tasks={len(self.tasks)}, total={self.total_duration}min)"
 
 
@@ -138,6 +150,7 @@ class Scheduler:
     PRIORITY_WEIGHT = {"high": 3, "medium": 2, "low": 1}
 
     def __init__(self, owner):
+        """Create a Scheduler tied to a specific Owner."""
         self.owner = owner
         self.schedule = None  # set after generate_schedule() is called
 
@@ -212,4 +225,5 @@ class Scheduler:
         return date.today().isoformat()
 
     def __repr__(self):
+        """Return a debug-friendly string representation of the Scheduler."""
         return f"Scheduler(owner={self.owner.name!r})"
