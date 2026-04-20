@@ -1,0 +1,24 @@
+2026-04-19 23:46:04,652 INFO suggest_tasks | pet=Kuri species=bird age=4 time_budget=120
+2026-04-19 23:46:04,663 INFO AFC is enabled with max remote calls: 10.
+2026-04-19 23:46:05,081 INFO HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent "HTTP/1.1 429 Too Many Requests"
+2026-04-20 00:08:06,393 INFO suggest_tasks | pet=kuri species=cat age=4 time_budget=120
+2026-04-20 00:08:06,405 INFO AFC is enabled with max remote calls: 10.
+2026-04-20 00:08:06,702 INFO HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent "HTTP/1.1 429 Too Many Requests"
+2026-04-20 00:26:18,616 INFO suggest_tasks | pet=kiki species=cat age=2 time_budget=120
+2026-04-20 00:26:18,620 INFO AFC is enabled with max remote calls: 10.
+2026-04-20 00:26:22,072 INFO HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2026-04-20 00:26:22,079 INFO suggest_tasks | raw_response_length=66
+2026-04-20 00:26:22,079 ERROR suggest_tasks | JSON parse error: Unterminated string starting at: line 5 column 5 (char 65) | raw_start=[
+  {
+    "name": "Morning Meal",
+    "category": "feeding",
+    "
+2026-04-20 00:33:24,135 INFO suggest_tasks | pet=kiki species=cat age=2 time_budget=120
+2026-04-20 00:33:24,138 INFO AFC is enabled with max remote calls: 10.
+2026-04-20 00:33:27,867 INFO HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2026-04-20 00:33:27,875 INFO suggest_tasks | raw_response_length=2190
+2026-04-20 00:33:27,876 INFO suggest_tasks | parsed 8 tasks
+2026-04-20 00:37:05,612 INFO explain_schedule | owner=Jordan pets=1 tasks_scheduled=8 tasks_skipped=0
+2026-04-20 00:37:05,617 INFO AFC is enabled with max remote calls: 10.
+2026-04-20 00:37:06,629 INFO HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2026-04-20 00:37:06,636 INFO explain_schedule | response_length=293
