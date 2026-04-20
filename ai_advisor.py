@@ -26,7 +26,7 @@ _EXPLAIN_SYSTEM = (
 
 
 class AIAdvisor:
-    def __init__(self, api_key=None, model="gemini-2.5-flash"):
+    def __init__(self, api_key=None, model="gemini-2.5-flash-lite"):
         self.model_name = model
         self.client = genai.Client(api_key=api_key or os.environ.get("GOOGLE_API_KEY"))
 
