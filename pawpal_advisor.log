@@ -22,3 +22,12 @@
 2026-04-20 00:37:05,617 INFO AFC is enabled with max remote calls: 10.
 2026-04-20 00:37:06,629 INFO HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
 2026-04-20 00:37:06,636 INFO explain_schedule | response_length=293
+2026-04-20 18:58:29,788 INFO suggest_tasks | pet=Kuri species=rabbit age=2 time_budget=120
+2026-04-20 18:58:29,789 INFO AFC is enabled with max remote calls: 10.
+2026-04-20 18:58:32,536 INFO HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent "HTTP/1.1 200 OK"
+2026-04-20 18:58:32,542 INFO suggest_tasks | raw_response_length=2260
+2026-04-20 18:58:32,542 INFO suggest_tasks | parsed 9 tasks
+2026-04-20 19:03:12,826 INFO explain_schedule | owner=Jordan pets=1 tasks_scheduled=9 tasks_skipped=0
+2026-04-20 19:03:12,828 INFO AFC is enabled with max remote calls: 10.
+2026-04-20 19:03:13,636 INFO HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent "HTTP/1.1 200 OK"
+2026-04-20 19:03:13,641 INFO explain_schedule | response_length=251
