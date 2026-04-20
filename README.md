@@ -163,23 +163,23 @@ Two complete sessions were run with different pets to exercise the full agentic 
 
 **Step 1 — Enter profile and API key.** The owner fills in Kiki's profile (species, age, health notes) and pastes a Gemini API key in the sidebar. This is the starting point before any AI call is made.
 
-<img src="assets/cat-profile.png" width="550">
+<img src="assets/cat-profile.png" width="650">
 
 **Step 2 — AI suggests tasks.** Clicking "Get AI Suggestions" sends Kiki's profile and the owner's time availability of the day to Gemini. The app displays a checkbox list of tailored care tasks with reasons. The owner reviews and selects which tasks to add.
 
-<img src="assets/cat-ai-task1.png" width="350">
+<img src="assets/cat-ai-task1.png" width="450">
 
 **Step 3 — Tasks added to the table.** User can uncheck the tasks they don't want to add. All suggested tasks were selected and added in this test. The task table now shows each task's category, priority, duration, preferred time, and complete status, ready for scheduling.
 
-<img src="assets/cat-task3.png" width="350">
+<img src="assets/cat-task3.png" width="450">
 
 **Step 4 — Schedule generated.** The greedy scheduler fits tasks within the owner's time budget, sorted by priority → preferred time → duration. The schedule panel shows which tasks were included and their per-task reasoning.
 
-<img src="assets/cat-schedule.png" width="350">
+<img src="assets/cat-schedule.png" width="450">
 
 **Step 5 — AI explains the plan.** Clicking "Explain plan with AI" sends the finalized schedule back to Gemini. It returns a plain-English summary of what was included and why, grounded in the actual schedule rather than a hypothetical one.
 
-<img src="assets/cat-explan.png" width="350">
+<img src="assets/cat-explan.png" width="450">
 
 ---
 
@@ -187,19 +187,19 @@ Two complete sessions were run with different pets to exercise the full agentic 
 
 **Step 1 — AI suggests tasks.** Gemini analyzes Kuri's rabbit profile and returns a JSON task list. The suggested tasks reflect rabbit-specific care needs (e.g., hay, exercise, grooming) rather than generic pet tasks.
 
-<img src="assets/rabbit-ai-task1.png" width="350">
+<img src="assets/rabbit-ai-task1.png" width="450">
 
 **Step 2 — Tasks added to the table.** All AI-suggested tasks were accepted and added to the task table, showing the same structured fields as the manual workflow.
 
-<img src="assets/rabbit-task2.png" width="350">
+<img src="assets/rabbit-task2.png" width="450">
 
 **Step 3 — Schedule generated.** The scheduler produces a prioritized daily plan for Kuri. Tasks that exceed the time budget are skipped, and the reasoning column explains each scheduling decision.
 
-<img src="assets/rabbit-schedule.png" width="350">
+<img src="assets/rabbit-schedule.png" width="450">
 
 **Step 4 — AI explains the plan.** Gemini reads the finalized schedule and produces a short explanation tailored to Kuri's profile, noting which tasks were prioritized and how they fit the available time.
 
-<img src="assets/rabbit-ai-explan.png" width="350">
+<img src="assets/rabbit-ai-explan.png" width="450">
 
 ---
 
