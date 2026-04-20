@@ -104,7 +104,12 @@ if st.session_state.ai_suggestions:
     for i, s in enumerate(st.session_state.ai_suggestions):
         col_check, col_info = st.columns([1, 9])
         with col_check:
-            st.checkbox("", key=f"sug_{i}", value=True)
+            st.checkbox(
+                f"Select suggestion {i + 1}",
+                key=f"sug_{i}",
+                value=True,
+                label_visibility="collapsed",
+            )
         with col_info:
             st.markdown(
                 f"**{s['name']}** · {s['category']} · {s['duration']} min · "
