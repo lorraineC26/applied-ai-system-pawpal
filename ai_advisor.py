@@ -11,6 +11,10 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+_REQUIRED_FIELDS = {"name", "category", "duration", "priority", "preferred_time", "time"}
+_VALID_PRIORITY = {"high", "medium", "low"}
+_VALID_PREFERRED_TIME = {"morning", "afternoon", "evening", "any"}
+
 _SUGGEST_SYSTEM = (
     "Suggest daily pet care tasks as a JSON array only. "
     "Each item: name, category (feeding/exercise/medication/grooming/enrichment/hygiene/veterinary/other), "
@@ -29,6 +33,26 @@ class AIAdvisor:
     def __init__(self, api_key=None, model="gemini-2.5-flash-lite"):
         self.model_name = model
         self.client = genai.Client(api_key=api_key or os.environ.get("GOOGLE_API_KEY"))
+
+    def _validate_suggestion(self, s):
+        """Return True if s has all required fields with valid values."""
+        if not _REQUIRED_FIELDS.issubset(s.keys()):
+            missing = _REQUIRED_FIELDS - s.keys()
+            logger.warning("validate_suggestion | rejected — missing fields: %s", missing)
+            return False
+        if s["priority"] not in _VALID_PRIORITY:
+            logger.warning("validate_suggestion | rejected — invalid priority: %s", s["priority"])
+            return False
+        if s["preferred_time"] not in _VALID_PREFERRED_TIME:
+            logger.warning("validate_suggestion | rejected — invalid preferred_time: %s", s["preferred_time"])
+            return False
+        try:
+            if int(s["duration"]) <= 0:
+                raise ValueError
+        except (ValueError, TypeError):
+            logger.warning("validate_suggestion | rejected — invalid duration: %s", s["duration"])
+            return False
+        return True
 
     def suggest_tasks(self, pet, time_available):
         """
@@ -67,7 +91,12 @@ class AIAdvisor:
         try:
             tasks = json.loads(raw)
             logger.info("suggest_tasks | parsed %d tasks", len(tasks))
-            return tasks
+            valid = [t for t in tasks if self._validate_suggestion(t)]
+            if len(valid) < len(tasks):
+                logger.warning(
+                    "suggest_tasks | dropped %d invalid suggestion(s)", len(tasks) - len(valid)
+                )
+            return valid
         except json.JSONDecodeError as e:
             logger.error(
                 "suggest_tasks | JSON parse error: %s | raw_start=%s", e, raw[:300]
