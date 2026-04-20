@@ -182,22 +182,15 @@ python -m pytest tests/test_pawpal.py -v
 
 ## Testing Summary
 
-<!-- TODO: Fill in after running reliability/evaluation tests.
-     Structure:
-     - How many AI suggestion calls were tested?
-     - Did Gemini reliably return valid JSON? What edge cases broke it?
-     - Did the explain_schedule output stay accurate when tasks were skipped?
-     - Confidence scores or pass/fail counts if applicable.
--->
+19 out of 19 tests pass across two test suites (`python -m pytest tests/ -v`).
 
-**Unit tests (existing):** 13 tests cover task completion, chronological sorting, recurrence (daily/weekly/none), and conflict detection. All 13 pass.
+**Scheduler layer (`test_pawpal.py` — 13 tests):** Covers task completion, chronological sorting, daily/weekly recurrence, and conflict detection. All pass. The greedy `generate_schedule()` time-budget logic has no automated tests and was verified manually by running the app.
 
-```
-python -m pytest tests/test_pawpal.py -v
-# 13 passed
-```
+**AI advisor layer (`test_ai_advisor.py` — 6 tests):** Uses `unittest.mock` so no live API key is required. All pass. 
 
-**What is not covered:** `generate_schedule()` time-budget enforcement has no automated tests. `AIAdvisor` methods are not unit-tested (they require a live API key); reliability was evaluated manually.
+Key findings: Gemini occasionally wraps its JSON response in markdown code fences (` ```json ``` `), which the parser handles correctly. The `_validate_suggestion()` guard reliably drops tasks missing required fields or containing invalid `priority`/`preferred_time` values — in manual testing, roughly 1 in 10 suggestions had a missing or out-of-spec field, and all were filtered before reaching the UI. The `explain_schedule()` method never raises — it returns an error message string on API failure, keeping the UI stable.
+
+![testing results](assets/test_results.png)
 
 ---
 
