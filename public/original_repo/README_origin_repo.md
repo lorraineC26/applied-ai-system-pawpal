@@ -16,10 +16,10 @@
 
 ## 📸 Demo
 
-![PawPal+ app screenshot](public/task.png)
-![PawPal+ app screenshot](public/task2.png)
-![PawPal+ app screenshot](public/task3.png)
-![PawPal+ app screenshot](public/task4.png)
+![PawPal+ app screenshot](task.png)
+![PawPal+ app screenshot](task2.png)
+![PawPal+ app screenshot](task3.png)
+![PawPal+ app screenshot](task4.png)
 
 ---
 

@@ -130,7 +130,7 @@ classDiagram
 
 ```bash
 # 1. Clone the repo
-git clone <repo-url>
+git clone https://github.com/lorraineC26/applied-ai-system-pawpal.git
 cd applied-ai-system-pawpal
 
 # 2. Create and activate a virtual environment
