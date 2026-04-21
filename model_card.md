@@ -43,8 +43,30 @@ type: reflection
 
 ## Collaboration with AI During This Project
 
-This project was built with significant assistance from Claude (Anthropic). Two specific instances are worth noting:
+This project was built with significant assistance from Claude (Anthropic) across every phase of development.
+
+**Prompting and architecture design.** Early in the project, I used Claude to think through the overall architecture — specifically how to separate the AI layer from the business logic so that the scheduler could run independently of any API call. Claude helped me draft the system prompt for `suggest_tasks()`, iterating on the field schema (adding `reason` as a per-task explanation field, tightening the enum values for `priority` and `preferred_time`) until the structured output was clean enough to parse reliably.
+
+**Debugging.** When `gemini-2.5-flash-lite` was returning truncated JSON, I described the symptom to Claude and it helped me narrow the cause to the free-tier thinking-token issue. It also helped me write the code-fence stripping logic in `suggest_tasks()` after I observed that the model was ignoring the "no markdown" instruction.
+
+**Code generation.** Claude wrote the initial skeleton for `ai_advisor.py`, the `_validate_suggestion()` method, the mocked API tests in `test_ai_advisor.py`, and the Streamlit checkbox-review panel in `app.py`. In each case I reviewed the generated code against the existing architecture before accepting it — the final code reflects edits I made after that review.
+
+Two specific instances of AI suggestions worth examining in detail:
 
 **Helpful suggestion — structured validation guard.** When designing `suggest_tasks()`, Claude suggested adding a `_validate_suggestion()` method as a runtime filter between the raw Gemini response and the `Task` constructor, rather than wrapping the constructor call in a try/except. This was a better design: it separates the concern of "is this data structurally valid?" from "does this task make sense?", produces clearer log warnings per field, and keeps the Task constructor free of defensive logic it shouldn't need. The suggestion led directly to the validation architecture that caught real failures during testing.
 
 **Flawed suggestion — model name in CLAUDE.md.** Claude initially recommended using `gemini-2.0-flash` as the default model in the codebase, noting it as a widely available and capable option. In practice, `gemini-2.0-flash` and `gemini-2.0-flash-lite` have zero free-tier quota on the Google AI Studio API and return 429 errors immediately. The correct free-tier model is `gemini-2.5-flash-lite` (or `gemini-2.5-flash`). Claude's suggestion was grounded in general knowledge about the Gemini model family but was not current on the specific quota and availability details of the free tier at the time of development. This was a good reminder that AI assistants can be confidently wrong on operational specifics that change faster than their training data.
+
+---
+
+## Future Improvements
+
+**Veterinary disclaimer.** The single highest-impact change would be a visible disclaimer on the AI suggestions panel stating that suggestions are not a substitute for professional veterinary advice, paired with a system prompt instruction to flag health conditions that warrant a vet visit.
+
+**Persistent storage.** Moving task data from `st.session_state` to a lightweight local database (e.g., SQLite via `sqlite3`) would allow the app to remember past schedules and let the AI suggestions improve over time — for instance, noting that a recurring task has been skipped multiple days in a row.
+
+**Smarter scheduling.** Replacing the greedy first-fit algorithm with a knapsack-style optimizer would allow the scheduler to pack more total care value into the available time rather than stopping as soon as one task exceeds the budget.
+
+**Structured output enforcement.** Rather than relying on the model to follow a schema and then validating after the fact, using Gemini's native JSON mode or response schema parameter would eliminate the markdown-wrapping and field-mismatch failures observed in testing — reducing the rate of validation rejections from ~10% toward zero.
+
+**Multi-user deployment safety.** For any public deployment, the API key input should be replaced with server-side environment variable injection, and the `health_notes` field should be sanitized or templated before being included in the prompt to prevent prompt injection.

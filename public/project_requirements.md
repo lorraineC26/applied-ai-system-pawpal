@@ -79,3 +79,23 @@ AI isn't just about what works -- it's about what's responsible. Include a short
 - Could your AI be misused, and how would you prevent that?
 - What surprised you while testing your AI's reliability?
 - Describe your collaboration with AI during this project. Identify one instance when the AI gave a helpful suggestion and one instance where its suggestion was flawed or incorrect.
+
+---
+ 
+## 6. Presentation and Portfolio: Sharing Your Work Professionally
+ 
+You'll wrap up by sharing your final project.
+ 
+- Prepare a **5-7 minute presentation** showing your system, demo, and what you learned.
+- Add a **portfolio artifact:**
+  - A GitHub link to your code
+  - A short reflection paragraph: What this project says about me as an AI engineer.
+- **Record a Loom video walkthrough (required):** Create a short walkthrough showing your system running end-to-end. To record, we recommend using Loom. Include the link in your README.
+**[IMPORTANT]** To receive an accurate grade, please make sure your video walkthrough clearly demonstrates the following features:
+ 
+- ✅ End-to-end system run (2-3 inputs)
+- ✅ AI feature behavior (RAG, agent, etc.)
+- ✅ Reliability/guardrail or evaluation behavior
+- ✅ Clear outputs for each case
+> It does not need to show code setup, file structure, or installation steps. If you are unsure about including something in your video, consult the Grading Rubric.
+ 
