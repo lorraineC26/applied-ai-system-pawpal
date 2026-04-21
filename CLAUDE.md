@@ -28,7 +28,7 @@ No linter is configured. Python 3.9+ required.
 
 The project is being extended in phases per `project_requirements.md`. 
 
-The existing README and reflections files for the original project are in the `applied-ai-system-pawpal` directory, which named `README_origin_repo.md` and `reflections_origin.md` in this repo. 
+The existing README and reflections files for the original project are in the `applied-ai-system-pawpal/public/original_repo` directory, which named `README_origin_repo.md` and `reflections_origin.md` in this repo. 
 
 ## Architecture
 
