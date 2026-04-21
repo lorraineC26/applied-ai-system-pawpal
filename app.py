@@ -17,7 +17,7 @@ with st.sidebar:
     st.caption("Get a free key at aistudio.google.com → Get API key.")
     st.caption("Your key is never stored or logged.")
 
-st.title("🐾 PawPal+")
+st.title("🐾 PawPal+ AI Edition")
 
 # --- Session state init ---
 if "owner" not in st.session_state:

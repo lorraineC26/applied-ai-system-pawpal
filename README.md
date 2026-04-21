@@ -235,9 +235,6 @@ Key findings: Gemini occasionally wraps its JSON response in markdown code fence
 
 ## Reflection
 
-<!-- TODO: Fill in after project completion. Address:
-     - What are the limitations or biases in your system?
-     - Could your AI be misused, and how would you prevent that?
-     - What surprised you while testing your AI's reliability?
-     - One instance where AI gave a helpful suggestion; one where it was flawed.
--->
+Building PawPal+ AI Edition made clear that integrating an LLM into a real application is less about prompting and more about defensive engineering around the model's unreliability — validating structured output, logging every call, and designing the UI so a bad API response degrades gracefully rather than crashing the experience. The human-in-the-loop checkpoint (owner reviews suggestions before they enter the scheduler) turned out to be as important for correctness as it was for user control: Gemini's suggestions were useful but not unconditionally trustworthy, and the owner's review step was the last line of defense against a poorly-specified task reaching the schedule.
+
+**For a deeper discussion of limitations, potential misuse, testing surprises, and specific instances of helpful and flawed AI collaboration during this project, see [model_card.md](model_card.md).**
