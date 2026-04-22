@@ -1,4 +1,4 @@
-# PawPal+ AI Edition
+# PetNest+ AI Edition
 
 ## Original Project
 
@@ -6,9 +6,9 @@
 
 ---
 
-## Summary of PawPal+ AI Edition
+## Summary of PetNest
 
-**PawPal+ AI Edition** extends the original scheduler with an agentic AI workflow powered by Google Gemini. Instead of requiring the owner to manually create every care task from scratch, the app now lets Gemini analyze the pet's profile and suggest a tailored list of tasks, which the owner reviews before adding. After the schedule is built, Gemini explains the final plan in plain English, highlighting what was included and why. The result is a three-step human-in-the-loop workflow: AI proposes → owner decides → AI explains.
+**PetNest+** extends the original scheduler with an agentic AI workflow powered by Google Gemini. Instead of requiring the owner to manually create every care task from scratch, the app now lets Gemini analyze the pet's profile and suggest a tailored list of tasks, which the owner reviews before adding. After the schedule is built, Gemini explains the final plan in plain English, highlighting what was included and why. The result is a three-step human-in-the-loop workflow: AI proposes → owner decides → AI explains.
 
 ---
 
@@ -16,7 +16,7 @@
 
 The system is organized into three layers:
 
-1. **Business logic** — `pawpal_system.py` defines five classes (`Owner`, `Pet`, `Task`, `Schedule`, `Scheduler`) that handle all scheduling, sorting, filtering, conflict detection, and recurring task logic independently of the UI.
+1. **Business logic** — `petnest_system.py` defines five classes (`Owner`, `Pet`, `Task`, `Schedule`, `Scheduler`) that handle all scheduling, sorting, filtering, conflict detection, and recurring task logic independently of the UI.
 2. **AI advisor** — `ai_advisor.py` defines `AIAdvisor`, which wraps the Gemini API. `suggest_tasks()` sends the pet's profile to Gemini and parses the JSON response into structured task dicts. `explain_schedule()` sends the finalized schedule back to Gemini for a plain-English summary.
 3. **UI** — `app.py` is a Streamlit interface that wires the two layers together and holds all state in `st.session_state`.
 
@@ -24,7 +24,7 @@ The system is organized into three layers:
 
 ```
 ┌──────────────────────────────────────────────────────────────────┐
-│                          PawPal+ AI                              │
+│                            PetNest                               │
 │                                                          TESTING │
 │  [1] Owner enters pet profile + time budget                      │
 │          │                                                       │
@@ -57,10 +57,10 @@ The system is organized into three layers:
 ```
 
 **Testing layer key:**
-- **Unit tests (pytest)** — 13 tests validate `Scheduler` logic (sorting, recurrence, conflict detection). Run with `python -m pytest tests/test_pawpal.py -v`.
+- **Unit tests (pytest)** — 13 tests validate `Scheduler` logic (sorting, recurrence, conflict detection). Run with `python -m pytest tests/test_petnest.py -v`.
 - **Mocked API tests** — `tests/test_ai_advisor.py` uses `unittest.mock` to test `AIAdvisor` without a live key: valid JSON parsing, field validation filtering, code-fence stripping, and graceful error handling.
 - **`_validate_suggestion()` (runtime guard)** — integrated into `suggest_tasks()`, filters out any AI-returned task missing required fields or containing invalid enum values before they reach the UI.
-- **File logging** — `ai_advisor.py` writes every call, response length, parse error, and validation rejection to `pawpal_advisor.log`.
+- **File logging** — `ai_advisor.py` writes every call, response length, parse error, and validation rejection to `petnest_advisor.log`.
 
 ### Class Diagram
 
@@ -148,7 +148,7 @@ When the app opens, paste your Gemini API key in the **AI Settings** sidebar. Th
 
 **Run tests:**
 ```bash
-python -m pytest tests/test_pawpal.py -v
+python -m pytest tests/test_petnest.py -v
 ```
 
 ---
@@ -213,7 +213,7 @@ Two complete sessions were run with different pets to exercise the full agentic 
 
 **Gemini 2.5 Flash Lite with `thinking_budget=0`.** The two AI calls are latency-sensitive (the user is waiting for suggestions or an explanation). Flash Lite is fast and inexpensive; disabling extended thinking removes additional latency with no meaningful quality loss for these structured tasks.
 
-**Logging to file, not stdout.** `ai_advisor.py` writes all API calls, response lengths, and parse errors to `pawpal_advisor.log`. This keeps the Streamlit UI clean while preserving a record that makes failures diagnosable without re-running the app.
+**Logging to file, not stdout.** `ai_advisor.py` writes all API calls, response lengths, and parse errors to `petnest_advisor.log`. This keeps the Streamlit UI clean while preserving a record that makes failures diagnosable without re-running the app.
 
 **Session state, no persistence.** Task data lives in `st.session_state` and resets on page reload. Persistence (a database or file) was out of scope; the tradeoff is simplicity at the cost of continuity across sessions.
 
@@ -223,7 +223,7 @@ Two complete sessions were run with different pets to exercise the full agentic 
 
 19 out of 19 tests pass across two test suites (`python -m pytest tests/ -v`).
 
-**Scheduler layer (`test_pawpal.py` — 13 tests):** Covers task completion, chronological sorting, daily/weekly recurrence, and conflict detection. All pass. The greedy `generate_schedule()` time-budget logic has no automated tests and was verified manually by running the app.
+**Scheduler layer (`test_petnest.py` — 13 tests):** Covers task completion, chronological sorting, daily/weekly recurrence, and conflict detection. All pass. The greedy `generate_schedule()` time-budget logic has no automated tests and was verified manually by running the app.
 
 **AI advisor layer (`test_ai_advisor.py` — 6 tests):** Uses `unittest.mock` so no live API key is required. All pass. 
 
@@ -235,6 +235,6 @@ Key findings: Gemini occasionally wraps its JSON response in markdown code fence
 
 ## Reflection
 
-Building PawPal+ AI Edition made clear that integrating an LLM into a real application is less about prompting and more about defensive engineering around the model's unreliability — validating structured output, logging every call, and designing the UI so a bad API response degrades gracefully rather than crashing the experience. The human-in-the-loop checkpoint (owner reviews suggestions before they enter the scheduler) turned out to be as important for correctness as it was for user control: Gemini's suggestions were useful but not unconditionally trustworthy, and the owner's review step was the last line of defense against a poorly-specified task reaching the schedule.
+Building PetNest made clear that integrating an LLM into a real application is less about prompting and more about defensive engineering around the model's unreliability — validating structured output, logging every call, and designing the UI so a bad API response degrades gracefully rather than crashing the experience. The human-in-the-loop checkpoint (owner reviews suggestions before they enter the scheduler) turned out to be as important for correctness as it was for user control: Gemini's suggestions were useful but not unconditionally trustworthy, and the owner's review step was the last line of defense against a poorly-specified task reaching the schedule.
 
 **For a deeper discussion of limitations, potential misuse, testing surprises, and specific instances of helpful and flawed AI collaboration during this project, see [model_card.md](model_card.md).**

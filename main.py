@@ -1,6 +1,6 @@
 # temporary "testing ground" to verify your logic works in the terminal
 
-from pawpal_system import Owner, Pet, Task, Scheduler
+from petnest_system import Owner, Pet, Task, Scheduler
 
 # ── 1. Create an Owner ──────────────────────────────────────────────────────
 owner = Owner(

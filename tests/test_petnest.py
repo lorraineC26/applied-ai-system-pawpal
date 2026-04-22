@@ -3,7 +3,7 @@ import os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
 from datetime import date, timedelta
-from pawpal_system import Task, Pet, Owner, Scheduler
+from petnest_system import Task, Pet, Owner, Scheduler
 
 
 def test_task_completion():

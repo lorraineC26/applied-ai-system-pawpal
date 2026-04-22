@@ -1,9 +1,9 @@
 ---
-name: PawPal+ AI Edition — Reflection & Ethics (Model Card)
+name: PetNest — Reflection & Ethics (Model Card)
 type: reflection
 ---
 
-# Reflection & Ethics — PawPal+ AI Edition
+# Reflection & Ethics — PetNest
 
 ## Limitations and Biases
 

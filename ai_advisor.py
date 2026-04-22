@@ -5,7 +5,7 @@ from google import genai
 from google.genai import types
 
 logging.basicConfig(
-    filename="pawpal_advisor.log",
+    filename="petnest_advisor.log",
     level=logging.INFO,
     format="%(asctime)s %(levelname)s %(message)s",
 )

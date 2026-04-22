@@ -1,9 +1,9 @@
 import os
 import streamlit as st
-from pawpal_system import Task, Pet, Owner, Scheduler
+from petnest_system import Task, Pet, Owner, Scheduler
 from ai_advisor import AIAdvisor
 
-st.set_page_config(page_title="PawPal+", page_icon="🐾", layout="centered")
+st.set_page_config(page_title="PetNest", page_icon="🐾", layout="centered")
 
 # --- Sidebar: API key ---
 with st.sidebar:
@@ -17,7 +17,7 @@ with st.sidebar:
     st.caption("Get a free key at aistudio.google.com → Get API key.")
     st.caption("Your key is never stored or logged.")
 
-st.title("🐾 PawPal+ AI Edition")
+st.title("🐾 PetNest")
 
 # --- Session state init ---
 if "owner" not in st.session_state:
@@ -91,7 +91,7 @@ if st.button("Get AI Suggestions", type="primary"):
                 if not suggestions:
                     st.error(
                         "Gemini returned no suggestions. "
-                        "Check pawpal_advisor.log for details."
+                        "Check petnest_advisor.log for details."
                     )
             except Exception as e:
                 st.error(f"AI suggestion failed: {e}")
