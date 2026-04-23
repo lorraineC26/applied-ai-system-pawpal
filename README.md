@@ -10,7 +10,7 @@
 
 **PetNest+** extends the original scheduler with an agentic AI workflow powered by Google Gemini. Instead of requiring the owner to manually create every care task from scratch, the app now lets Gemini analyze the pet's profile and suggest a tailored list of tasks, which the owner reviews before adding. After the schedule is built, Gemini explains the final plan in plain English, highlighting what was included and why. The result is a three-step human-in-the-loop workflow: AI proposes → owner decides → AI explains.
 
-**Video Walkthrough:** [Watch on Loom](https://www.loom.com/share/d603c559a9c64954bd3e01767e955007)
+**🎦 Video Walkthrough:** [Watch on Loom](https://www.loom.com/share/d603c559a9c64954bd3e01767e955007)
 
 ---
 
