@@ -10,6 +10,8 @@
 
 **PetNest+** extends the original scheduler with an agentic AI workflow powered by Google Gemini. Instead of requiring the owner to manually create every care task from scratch, the app now lets Gemini analyze the pet's profile and suggest a tailored list of tasks, which the owner reviews before adding. After the schedule is built, Gemini explains the final plan in plain English, highlighting what was included and why. The result is a three-step human-in-the-loop workflow: AI proposes → owner decides → AI explains.
 
+**Video Walkthrough:** [Watch on Loom](https://www.loom.com/share/d603c559a9c64954bd3e01767e955007)
+
 ---
 
 ## Architecture Overview
@@ -237,10 +239,11 @@ Key findings: Gemini occasionally wraps its JSON response in markdown code fence
 
 Building PetNest made clear that integrating an LLM into a real application is less about prompting and more about defensive engineering around the model's unreliability — validating structured output, logging every call, and designing the UI so a bad API response degrades gracefully rather than crashing the experience. The human-in-the-loop checkpoint (owner reviews suggestions before they enter the scheduler) turned out to be as important for correctness as it was for user control: Gemini's suggestions were useful but not unconditionally trustworthy, and the owner's review step was the last line of defense against a poorly-specified task reaching the schedule.
 
-**What this project says about me as an AI engineer:**
+**For a deeper discussion of limitations, potential misuse, testing surprises, and specific instances of helpful and flawed AI collaboration during this project, see [model_card.md](model_card.md).**
+
+### What this project says about me as an AI engineer:
 
 When I think about what this project says about me as an AI engineer — it's not just that I integrated an AI API. It's that I thought about what happens when the AI gets it wrong. I added a validation layer, a human review checkpoint, automated tests, and graceful error handling. The AI is a collaborator in the workflow, not a black box I hand control to.
 
 That's the approach I want to bring to any AI system I build: useful, reliable, and honest about its limits.
 
-**For a deeper discussion of limitations, potential misuse, testing surprises, and specific instances of helpful and flawed AI collaboration during this project, see [model_card.md](model_card.md).**
